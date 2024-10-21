@@ -1,0 +1,9 @@
+pytest
+pytest-bdd
+pywinauto
+comtypes
+pywin32
+six
+wmi
+psutil
+allure-pytest

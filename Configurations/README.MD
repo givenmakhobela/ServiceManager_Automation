@@ -1,0 +1,1 @@
+This folder stores all the Pytest and Project related configurations including xpaths.

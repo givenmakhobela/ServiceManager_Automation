@@ -1,0 +1,1 @@
+This folder stores all the input data from CSV and JSON file
