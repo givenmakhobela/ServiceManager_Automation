@@ -9,7 +9,6 @@ class RegistrationOfUserForEFilling:
   def __init__(self):
     self.sleepTimeout = 4
   
-  @allure.step('Navigate to Classify Case')
   def NavigateToClassifyCase(self, context):
     allure.step('Click Work Items from Navigation')
     POMServiceNavigation().ClickWorkItem(context, 'Work Items')
@@ -21,7 +20,6 @@ class RegistrationOfUserForEFilling:
     POMServiceNavigation().ClickMenuRow(context, 0)
     pass
   
-  @allure.step('Authenticate ')
   def NavigateToClassifyClient(self, context):
     allure.step('Click Authenticate client')
     POMClassifyCase().ClickItem(context, 0)
