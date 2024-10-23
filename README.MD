@@ -23,3 +23,4 @@ $ pip install -r requirements.txt
 ```
 #### Manually run Winium stored in .\WiniumDriver from the root of your project which will start HTTP service on port 9999. If you do not have the WiniumDriver installed download it on this github [link](https://github.com/2gis/Winium.Desktop/releases) and then store it under .\WiniumDriver folder for ease of accesse.
 
+behave -f allure_behave.formatter:AllureFormatter -o allure-results

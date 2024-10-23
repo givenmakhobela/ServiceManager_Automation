@@ -10,6 +10,12 @@ class POMCore:
     x, y = rect.mid_point()
 
     mouse.double_click(button='left', coords=(x, y))
+  
+  def ClickWithMouse(self):
+    rect = self.context.rectangle()
+    x, y = rect.mid_point()
+
+    mouse.double_click(button='left', coords=(x, y))
 
   def clickElement(self, text=None, xpath=None):
     # Todo

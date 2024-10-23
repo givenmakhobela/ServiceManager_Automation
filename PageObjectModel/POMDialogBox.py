@@ -7,6 +7,7 @@ class POMDialogBox:
     try:
       element = instance.window(auto_id='Main').child_window(title='Classifications').child_window(title='Bbd.Sars.CMWorkflow.ClassifyCaseWPF.Classification', found_index=0)
 
+      element.draw_outline()
       POMCore(element).doubleClickWithMouse()
       return True
     except:

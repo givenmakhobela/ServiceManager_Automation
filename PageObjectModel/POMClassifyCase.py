@@ -7,6 +7,8 @@ class POMClassifyCase:
     try:
       element = instance.window(auto_id='Main').child_window(title='Classifications').child_window(title='Bbd.Sars.CMWorkflow.ClassifyCaseWPF.Classification', found_index=0)
 
+      element.draw_outline()
+
       POMCore(element).DoubleClickWithMouse()
       return True
     except:
@@ -14,9 +16,11 @@ class POMClassifyCase:
   
   def OnCaseCreatedClickOkay(self, instance):
 
-    instance.window(auto_id='Main').child_window(title="Create Case", control_type="Window").child_window(title="OK", control_type="Button").click()
     try:
-      instance.window(auto_id='Main').child_window(title="Create Case", control_type="Window").child_window(title="OK").click()
+      element = instance.window(auto_id='Main').child_window(title="Create Case", control_type="Window").child_window(title="OK")
+      
+      element.draw_outline()
+      element.click()
 
       return True
     except:
