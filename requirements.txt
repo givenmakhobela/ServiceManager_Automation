@@ -6,3 +6,5 @@ wmi
 psutil
 allure-behave
 behave
+pillow
+pyautogui
