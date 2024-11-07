@@ -1,4 +1,5 @@
 from pywinauto import mouse
+from pywinauto import keyboard
 
 class POMCore:
   def __init__(self, context):
@@ -17,17 +18,14 @@ class POMCore:
 
     mouse.double_click(button='left', coords=(x, y))
 
-  def clickElement(self, text=None, xpath=None):
-    # Todo
-    return
+  def ClickWorkFlowDone(self):
+    keyboard.send_keys('{F5}')
   
-  def waitForElement(self, text=None, xpath=None, timeout=5):
-    # Todo
-    return
+  def SelectAllText(self):
+    keyboard.send_keys('^a')
   
-  def pause(self, text=None, xpath=None, timeout=0):
-    # Todo
-    return
+  def TypeText(self, text):
+    keyboard.send_keys(text)
   
   def doesElementExist(self, text=None, xpath=None):
     # Todo

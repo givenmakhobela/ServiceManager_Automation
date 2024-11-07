@@ -1,0 +1,1302 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<schema targetNamespace="http://www.sars.gov.za/enterpriseMessagingModel/EntityRegistrationManagement/xml/schemas/version/2.1"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.sars.gov.za/enterpriseMessagingModel/EntityRegistrationManagement/xml/schemas/version/2.1" xmlns:bt="http://www.sars.gov.za/enterpriseMessagingModel/GMD/BaseTypes/xml/schemas/version/55.2">
+	<import schemaLocation="SARSGMD_BaseTypesV55.2.xsd" 
+	namespace="http://www.sars.gov.za/enterpriseMessagingModel/GMD/BaseTypes/xml/schemas/version/55.2"></import>
+
+<annotation>
+<documentation>
+	 - Updated by Christina Maluleke on 13/09/2018
+	 - Made optional IssueCountry within IdentificationDetails structure
+</documentation>
+<documentation>
+	 - Updated by Christina Maluleke on 10/09/2018
+	 - Increased MaxLength for EntityStatus element 5 in the RepresentativeDetails structure 
+	 - Increased MaxLength for EntityStatus element 5 in the Individual and Organisation structures within OtherRelationship structure
+	 - Made optional IssueCountry within IdentificationDetails structure
+</documentation>
+<documentation>
+	 - Updated by Christina Maluleke on 16/08/2018
+	 - Made option UniqueID in the request or response of the Library items
+	 - Made mandatory ID request or response of the Library items
+</documentation>
+<documentation>
+	 - Updated by Christina Maluleke on 14/08/2018
+	 - Made optional City within the Physical address structure.
+	 - Made mandatory PostalCode within the Physical address structure
+	 - Made optional BankCountry within BankDetail structure
+</documentation>
+<documentation>
+	 - Updated by Christina Maluleke on 26/07/2018
+	 - Updated the PostalAddress structure to include the Physical structure
+</documentation>
+<documentation>
+	 - Updated by Christina Maluleke on 23/07/2018
+	 - Made optional TelSeqNo element from within TelephoneStructure in both request and response structure
+	 - Added TelNoDetailID element within TelephoneStructure in both request and response structure
+	 - Made optional EmailSeqNo element from Email Structure in both request and response structure
+	 - Added EmailDetailID element within Email Structure in both request and response structure
+	 - Made optional ContactDetailID and UniqueID within the response structure
+	 - Made mandatory UniqueID within the Physical and Postal Address structures of the request
+	 - Updated CommunicationDetails structure to align to the SAP functional spec structure
+	 - Made Streetname mandatory within the Physical Address structure
+	 - Updated MyContactDetails structure to provide for SAP requirements to differentiate between the Postal and Physical address IDs 
+</documentation>
+<documentation>
+	 Updated by Christina Maluleke on 04/07/2018
+	 - Updated the CountryCode Maxlength to 3 within Physical Address structure
+	 - Made Optional SameAsPhysicalAddressInd,CareOfInd and RegisteredPostalAddressInd within the PostalAddressDetails
+	 - Updated enumeration MISCELLANOUS to MS within the response structure
+	 - Updated enumeration ADMIN_PENALTY to AD within the response structure
+	 
+</documentation>
+<documentation>
+	 Updated by Christina Maluleke on 09/05/2018
+	 - Updated the targetnamspace.
+ </documentation>
+<documentation>
+	 Updated by Christina Maluleke on 26/04/2018
+	 - Removed PhysicalAddressDetail from within the PostalAddressDetails structure of the MyContactDetails
+</documentation>
+<documentation>
+	 Updated by Christina Maluleke on 16/02/2018
+	   - Added enum "CHANGE_FINANCIAL_YEAR_END" to the RequestOperation
+	   - Added CurrentFYE, NewFYE and EffectivePeriodFYE within the Response structure
+</documentation>
+	<documentation>
+	 Updated by Christina Maluleke on 30/11/2017
+	      - Updated IndustryClassification restriction to MaxLength 10.
+	      - Removed IdentificationType within IdentificationDetails of Representative Structure
+	      - Made optiona1 IssueCountry within IdentificationDetails of Representative Structure
+	      - Removed IdentificationType within Organiationisation of OtherRelationships Structure
+	      - Made optiona1 IssueCountry within Organiationisation of OtherRelationships Structure
+	      - Added BusinessPartnerNo within Representative, OtherRelationship structures
+	</documentation>
+	
+	<documentation>
+			Schema defined by Christina Maluleke 
+		</documentation>
+		
+</annotation>
+
+	<element name="EntityRegistrationManagementRequest"
+		type="tns:EntityRegistrationManagementRequestStructure">
+	</element>
+
+	<element name="EntityRegistrationManagementResponse"
+		type="tns:EntityRegistrationManagementResponseStructure">
+	</element>
+
+	<complexType name="EntityRegistrationManagementRequestStructure">
+        <sequence>
+        	<element name="RequestOperation" maxOccurs="1"
+        		minOccurs="1">
+        		<simpleType>
+        			<restriction base="string">
+        				<enumeration value="NEW_REGISTRATION"></enumeration>
+        				<enumeration value="MAINTAIN_ENTITY_DETAILS"></enumeration>
+        				<enumeration value="CHANGE_FINANCIAL_YEAR_END"></enumeration>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="ClientCategory" type="bt:IndicatorType"
+        		maxOccurs="1" minOccurs="1">
+        	</element>
+        	<element name="ClientClassification" maxOccurs="1"
+        		minOccurs="1">
+        		<simpleType>
+        			<restriction base="string">
+        				<minLength value="1"></minLength>
+        				<maxLength value="4"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="PartyID" type="bt:PartyIDType" maxOccurs="1"
+        		minOccurs="1">
+        	</element>
+        	<element name="BusinessPartnerNo"
+        		type="bt:BusinessPartnerNoType" maxOccurs="1" minOccurs="0">
+        	</element>
+        	<choice>
+        		<element name="Individual" maxOccurs="1"
+        			minOccurs="1">
+        			<complexType>
+        				<all>
+        					<element name="Surname"
+        						type="bt:SurnameType" maxOccurs="1" minOccurs="1">
+        					</element>
+        					<element name="Initials"
+        						type="bt:InitialsType" maxOccurs="1" minOccurs="1">
+        					</element>
+        					<element name="FirstName"
+        						type="bt:FullNamesType" maxOccurs="1" minOccurs="1">
+        					</element>
+        					<element name="OtherName"
+        						type="bt:FullNamesType" maxOccurs="1" minOccurs="0">
+        					</element>
+        					<element name="DateOfBirth" type="date"
+        						maxOccurs="1" minOccurs="1">
+        					</element>
+        					<element name="MaritalType" maxOccurs="1"
+        						minOccurs="1">
+        						<simpleType>
+        							<restriction base="string">
+        								<enumeration value="1"></enumeration>
+        								<enumeration value="2"></enumeration>
+        								<enumeration value="3"></enumeration>
+        								<enumeration value="4"></enumeration>
+        								<enumeration value="5"></enumeration>
+        								<enumeration value="6"></enumeration>
+        							</restriction>
+        						</simpleType>
+        					</element>
+        					<element name="TradingName" type="bt:OrganisationNameType" maxOccurs="1" minOccurs="0"></element>
+        				</all>
+        			</complexType>
+        		</element>
+        		<element name="Organisation" maxOccurs="1" minOccurs="1"
+        			type="tns:OrganisationStructure">
+        		</element>
+        	</choice>
+        	<element name="ForeignDiplomaticInd" type="bt:YesNoIndType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="AllPartnersNaturalPersonInd"
+        		type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="ShareBlockInd" type="bt:YesNoIndType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="AsylumSeekerInd" type="bt:YesNoIndType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="BodyCorporateInd" type="bt:YesNoIndType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="EntityStatus" maxOccurs="1" minOccurs="0">
+        		<simpleType>
+        			<restriction base="string">
+        				<minLength value="1"></minLength>
+        				<maxLength value="5"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="CommunicationLanguage" maxOccurs="1"
+        		minOccurs="0">
+        		<simpleType>
+        			<restriction base="string">
+        				<minLength value="1"></minLength>
+        				<maxLength value="2"></maxLength>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="CommunicationDetails" maxOccurs="1" minOccurs="1" type="tns:CommunicationDetailsStructure">
+              
+        	</element>
+        	<element name="IdentificationDetails" maxOccurs="1"
+        		minOccurs="0" type="tns:IdentificationDetailsStructure">
+        	</element>
+            <element name="NoLocalBankAccInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        				</element>
+            <element name="LocalBankAccInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        				</element>
+            <element name="ThirdPartyBankAccInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        				</element>
+            <element name="BankAccDeclarationReason" type="tns:BankAccDeclarationReasonStructure" maxOccurs="1" minOccurs="0">
+        				</element>
+            <element name="BankAccDetails" maxOccurs="1" minOccurs="0">
+        		<complexType>
+                    <sequence>
+        				<element name="BankAccDetail" maxOccurs="9999" minOccurs="1">
+        					<complexType>
+                                <all>
+                                	<element name="ID" type="long"
+                                		maxOccurs="1" minOccurs="0">
+                                	</element>
+                                	<element name="UniqueID"
+                                		type="bt:UniqueIdentifierType"
+                                		maxOccurs="1" minOccurs="0">
+                                	</element>
+                                	<element name="BankAccID"
+                                		maxOccurs="1" minOccurs="0" type="tns:BankAccIDType">
+                                		
+                                	</element>
+                                	<element name="MarkedForDeletion"
+                                		type="bt:YesNoIndType" maxOccurs="1"
+                                		minOccurs="0">
+                                	</element>
+                                    <element name="ConfirmedInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+                                	</element>
+                                    <element name="BankAccount"
+                                		type="tns:BankAccountStructure"
+                                		maxOccurs="1" minOccurs="1">
+                                	</element>
+                                </all>
+
+        					</complexType>
+        				</element>
+        			</sequence>
+
+        		</complexType>
+        	</element>
+        	<element name="RepresentativeDetails"
+        		type="tns:RelationshipStructure" maxOccurs="1"
+        		minOccurs="0">
+        	</element>
+        	<element name="OtherRelationships"
+        		type="tns:OtherRelationshipsType" maxOccurs="1"
+        		minOccurs="0">
+        	</element>
+        	<element name="MyContactDetails" maxOccurs="1" minOccurs="0">
+        		<complexType>
+        			<sequence>
+        				<element name="MyContactDetail" maxOccurs="9999" minOccurs="1">
+        					<complexType>
+                                <all>
+        							<element name="ID" type="long" maxOccurs="1" minOccurs="0">
+        							</element>
+        							<element name="UniqueID" type="bt:UniqueIdentifierType" maxOccurs="1" minOccurs="0">
+        							</element>
+        							<element name="ContactDetaillID" type="tns:ContactDetailIDType" maxOccurs="1" minOccurs="0">
+        							</element>
+        							<element name="MarkedForDeletion" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        							</element>
+        							<element name="ConfirmedInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        							</element>
+        							<element name="Contacts" maxOccurs="1" minOccurs="1">
+                                        <complexType>
+                                            <all>
+                                        		<element name="TelNumbers" maxOccurs="1" minOccurs="0">
+                                                    <complexType>
+                                                        <sequence>
+                                                    		<element name="TelNumber" type="tns:TelNoStructure" maxOccurs="999" minOccurs="1">
+                                                    		</element>
+                                                    	</sequence>
+                                                    </complexType>
+                                        		</element>
+                                        		<element name="EmailAddresses" maxOccurs="1" minOccurs="0">
+                                                    <complexType>
+                                                        <sequence>
+                                                    		<element name="EmailAddress" type="tns:EmailAddressStructure" maxOccurs="999" minOccurs="1">
+                                                    		</element>
+                                                    	</sequence>
+                                                    </complexType>
+                                        		</element>
+                                        		<element name="Addresses" maxOccurs="1" minOccurs="0">
+                                                    <complexType>
+                                                        <sequence>
+                                                    		<element name="Address" type="tns:AddressDetailStructure" maxOccurs="999" minOccurs="1">
+                                                    		</element>
+                                                    	</sequence>
+                                                    </complexType>
+                                        		</element>
+                                        	</all>
+                                        </complexType>
+        							</element>
+        						</all>
+        					</complexType></element>
+        			</sequence>
+        		</complexType></element>
+        </sequence>
+
+	</complexType>
+
+	<complexType name="EntityRegistrationManagementResponseStructure">
+        <all>
+        	<element name="BusinessPartnerNo"
+        		type="bt:BusinessPartnerNoType" maxOccurs="1" minOccurs="1">
+        	</element>
+        	<element name="BusinessPartnerDetails" maxOccurs="1"
+        		minOccurs="0">
+        		<complexType>
+        			<sequence>
+        				<element name="BusinessPartnerDetail"
+        					maxOccurs="2" minOccurs="1">
+        					<complexType>
+        						<all>
+        							<element name="AccountType"
+        								maxOccurs="1" minOccurs="1">
+        								<simpleType>
+        									<restriction
+        										base="string">
+        										<enumeration
+        											value="MS">
+        										</enumeration>
+        										<enumeration
+        											value="AD">
+        										</enumeration>
+        									</restriction>
+        								</simpleType>
+        							</element>
+        							<element name="ContractAccountNo"
+        								maxOccurs="1" minOccurs="1">
+        								<simpleType>
+        									<restriction
+        										base="string">
+        										<minLength value="1"></minLength>
+        										<maxLength value="12"></maxLength>
+        									</restriction>
+        								</simpleType>
+        							</element>
+        							<element name="ContractObjectNo"
+        								maxOccurs="1" minOccurs="1">
+        								<simpleType>
+        									<restriction
+        										base="string">
+        										<minLength value="1"></minLength>
+        										<maxLength value="20"></maxLength>
+        									</restriction>
+        								</simpleType>
+        							</element>
+        							<element name="TaxType"
+        								type="bt:TypeOfTaxType" maxOccurs="1" minOccurs="0">
+        							</element>
+        						</all>
+
+        					</complexType>
+        				</element>
+        			</sequence>
+        		</complexType>
+        	</element>
+        	<element name="BankDetails" maxOccurs="1" minOccurs="0">
+        		<complexType>
+        			<sequence>
+        				<element name="BankDetail" maxOccurs="999"
+        					minOccurs="1">
+        					<complexType>
+        						<all>
+        							<element name="BankAccID"
+        								type="tns:BankAccIDType" maxOccurs="1" minOccurs="1">
+        							</element>
+        							<element name="UniqueID"
+        								type="bt:UniqueIdentifierType" maxOccurs="1"
+        								minOccurs="0">
+        							</element>
+        							<element name="ID" type="long"
+        								maxOccurs="1" minOccurs="1">
+        							</element>
+        						</all>
+        					</complexType>
+        				</element>
+        			</sequence>
+        		</complexType>
+        	</element>
+        	<element name="ContactDetails" maxOccurs="1"
+        		minOccurs="0">
+        		<complexType>
+        			<sequence>
+        				<element name="ContactDetail" maxOccurs="9999"
+        					minOccurs="1">
+        					<complexType>
+        						<all>
+        							<element name="ID" type="long"
+        								maxOccurs="1" minOccurs="0">
+        							</element>
+        							<element name="UniqueID"
+        								type="bt:UniqueIdentifierType" maxOccurs="1"
+        								minOccurs="0">
+        							</element>
+        							<element name="ContactDetailID"
+        								type="tns:ContactDetailIDType" maxOccurs="1"
+        								minOccurs="0">
+        							</element>
+        							<element name="Contacts"
+        								maxOccurs="1" minOccurs="1">
+        								<complexType>
+        									<all>
+        										<element
+        											name="TelNumbers" maxOccurs="1" minOccurs="0">
+        											<complexType>
+        												<sequence>
+        													<element
+        														name="TelNumber" maxOccurs="999" minOccurs="1">
+        														<complexType>
+        															<all>
+        																<element
+        																	name="ID" type="long" maxOccurs="1"
+        																	minOccurs="1">
+        																</element>
+        																<element
+        																	name="TelSeqNo" type="tns:TelNoSeqNoType"
+        																	maxOccurs="1" minOccurs="0">
+        																</element>
+        																<element
+        																	name="TelNoDetailID" type="tns:ContactDetailIDType" maxOccurs="1" minOccurs="1">
+        																</element>
+        																<element
+        																	name="UniqueID" type="bt:UniqueIdentifierType"
+        																	maxOccurs="1" minOccurs="0">
+        																</element>
+        															</all>
+        														</complexType>
+        													</element>
+        												</sequence>
+        											</complexType>
+        										</element>
+        										<element
+        											name="EmailAddresses" maxOccurs="1" minOccurs="0">
+        											<complexType>
+        												<sequence>
+        													<element
+        														name="EmailAddress" maxOccurs="999"
+        														minOccurs="1">
+        														<complexType>
+        															<all>
+        																<element
+        																	name="ID" type="long" maxOccurs="1"
+        																	minOccurs="1">
+        																</element>
+        																<element
+        																	name="UniqueID" type="bt:UniqueIdentifierType"
+        																	maxOccurs="1" minOccurs="0">
+        																</element>
+        																<element
+        																	name="EmailSeqNo" type="tns:EmailSeqNoType"
+        																	maxOccurs="1" minOccurs="0">
+        																</element>
+        																<element
+        																	name="EmailDetailID" type="tns:ContactDetailIDType" maxOccurs="1" minOccurs="1">
+        																</element>
+        															</all>
+        														</complexType>
+        													</element>
+        												</sequence>
+        											</complexType>
+        										</element>
+        										<element
+        											name="Addresses" maxOccurs="1" minOccurs="0">
+        											<complexType>
+        												<sequence>
+        													<element
+        														name="Address" maxOccurs="999" minOccurs="1">
+        														<complexType>
+        															<all>
+                                                                        <element name="ID" type="long" maxOccurs="1" minOccurs="1">
+        																</element>
+                                                                        <element
+        																	name="UniqueID" type="bt:UniqueIdentifierType"
+        																	maxOccurs="1" minOccurs="0">
+        																</element>
+        																<element
+        																	name="ContactDetailID"
+        																	type="tns:ContactDetailIDType" maxOccurs="1"
+        																	minOccurs="1">
+        																</element>
+        															</all>
+        														</complexType>
+        													</element>
+        												</sequence>
+
+        											</complexType>
+        										</element>
+        									</all>
+        								</complexType>
+        							</element>
+        						</all>
+
+        					</complexType>
+        				</element>
+        			</sequence>
+        		</complexType>
+        	</element>
+        	<element name="CurrentFYE" type="bt:FinancialYearEndType" maxOccurs="1" minOccurs="0"></element>
+        	<element name="NewFYE" type="bt:FinancialYearEndType" maxOccurs="1" minOccurs="0"></element>
+            <element name="EffectivePeriodFYE" type="bt:YearType" maxOccurs="1" minOccurs="0"></element>
+        </all>
+	</complexType>
+
+	<complexType name="ContactDetailStructure">
+		<all>
+			<element name="TelNoDetails" maxOccurs="1" minOccurs="0">
+				<complexType>
+					<sequence>
+						<element name="TelNoDetail" maxOccurs="4" minOccurs="1" type="tns:TelNoStructure">
+							</element>
+					</sequence>
+				</complexType></element>
+			<element name="NoCellPhoneInd" type="bt:YesNoIndType"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="NoEmailInd" type="bt:YesNoIndType"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="Email" type="tns:EmailAddressStructure" maxOccurs="1"
+				minOccurs="0">
+			</element>
+			<element name="WebAdress" type="bt:EmailType" maxOccurs="1"
+				minOccurs="0">
+			</element>
+
+			<element name="AddressDetails" maxOccurs="1"
+				minOccurs="0">
+				<complexType>
+					<sequence>
+						<element name="AddressDetail"
+							type="tns:AddressDetailStructure" maxOccurs="2" minOccurs="1">
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="Metadata" type="bt:MetadataStructure"
+				maxOccurs="1" minOccurs="0">
+			</element>
+		</all>
+	</complexType>
+
+	<complexType name="TelNoStructure">
+        <all>
+        	<element name="TelNo" type="bt:TelFaxCellNoType"
+        		maxOccurs="1" minOccurs="1">
+        	</element>
+        	<element name="TelNoCountry" type="bt:CountryType"
+        		maxOccurs="1" minOccurs="1">
+        	</element>
+        	<element name="RegisteredNoInd" type="bt:YesNoIndType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="ID" type="long" maxOccurs="1"
+        		minOccurs="1">
+        	</element>
+        	<element name="UniqueID" type="bt:UniqueIdentifierType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="TelSeqNo" type="tns:TelNoSeqNoType" maxOccurs="1" minOccurs="0"></element>
+        	<element name="TelNoDetailID" maxOccurs="1" minOccurs="0"
+        		type="tns:ContactDetailIDType">
+        	</element>
+        	<element name="MarkedForDeletion" type="bt:YesNoIndType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="Use" maxOccurs="1" minOccurs="1">
+        		<simpleType>
+        			<restriction base="string">
+        				<enumeration value="HOME"></enumeration>
+        				<enumeration value="BUSINESS"></enumeration>
+        				<enumeration value="FAX"></enumeration>
+        				<enumeration value="CELL"></enumeration>
+        			</restriction>
+        		</simpleType>
+        	</element>
+        	<element name="Usages" maxOccurs="1" minOccurs="0"
+        		type="tns:UsagesStructure">
+        	</element>
+        </all>
+	</complexType>
+	
+	<complexType name="UsagesStructure">
+		<sequence>
+			<element minOccurs="1" maxOccurs="99" name="Usage">
+				<complexType>
+					<all>
+						<element minOccurs="0" maxOccurs="1"
+							name="TaxRefDetails">
+							<complexType>
+								<all>
+									<element minOccurs="1" maxOccurs="1"
+										name="TaxType" type="bt:TypeOfTaxType">
+									</element>
+									<element minOccurs="0" maxOccurs="1"
+										name="TaxRefNo" type="bt:TaxRefNoType">
+									</element>
+								</all>
+							</complexType>
+						</element>
+					</all>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	
+
+	<complexType name="AddressDetailStructure">
+        <choice>
+        	<element name="PhysicalAddressDetails" maxOccurs="1"
+        		minOccurs="1" type="tns:PhysicalAddressDetailsStructure">
+        	</element>
+        	<element name="PostalAddressDetails" maxOccurs="1"
+        		minOccurs="1">
+        		<complexType>
+        			<all>
+        				<element name="SameAsPhysicalAddressInd"
+        					type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        				</element>
+        				<element name="CareOfInd" type="bt:YesNoIndType"
+        					maxOccurs="1" minOccurs="0">
+        				</element>
+        				<element name="RegisteredPostalAddressInd"
+        					type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        				</element>
+        				<element name="ID" type="long" maxOccurs="1" minOccurs="1"></element>
+        				<element name="UniqueID" type="bt:UniqueIdentifierType" maxOccurs="1" minOccurs="0"></element>
+        				<element name="ContactDetaillID"
+        					type="tns:ContactDetailIDType" maxOccurs="1" minOccurs="0">
+        				</element>
+        				<element name="MarkedForDeletion"
+        					type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+        				</element>
+        				<element name="Usages" type="tns:UsagesStructure" maxOccurs="1" minOccurs="0"></element>
+        				<element name="ConfirmInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0"></element>
+        				<element name="PostalAddresssDetail"
+        					maxOccurs="1" minOccurs="1"
+        					type="tns:PostalAddresssDetailStructure">
+
+        				</element>
+
+        			</all>
+        		</complexType>
+        	</element>
+        </choice>
+	</complexType>
+	<complexType name="PhysicalAddressStructure">
+		<annotation>
+			<documentation>
+				Structure representing a physical address associated
+				with party transacting with SARS
+			</documentation>
+		</annotation>
+		<all>
+			<element name="UnitNo" type="bt:UnitStreetNoType"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the unit number associated with the
+						physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="ComplexName" type="bt:ComplexStreetNameType"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the complex name associated with the
+						physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="StreetNo" type="bt:UnitStreetNoType"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the street number associated with the
+						physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="StreetName" type="bt:ComplexStreetNameType"
+				minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the street name associated with the
+						physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="Suburb" type="bt:SuburbType" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the suburb associated with the
+						physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="City" type="bt:CityType" minOccurs="0"
+				maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the city associated with the physical
+						address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="CountryCode" type="bt:CountryType"
+				minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the code of the country associated
+						with the physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="PostalCode" type="bt:PostalCodeType"
+				minOccurs="1" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the postal code for the area
+						associated with the physical address
+					</documentation>
+				</annotation>
+			</element>
+			<element name="Province" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="EC"></enumeration>
+						<enumeration value="FS"></enumeration>
+						<enumeration value="GP"></enumeration>
+						<enumeration value="KZN"></enumeration>
+						<enumeration value="MP"></enumeration>
+						<enumeration value="NC"></enumeration>
+						<enumeration value="NP"></enumeration>
+						<enumeration value="NW"></enumeration>
+						<enumeration value="WC"></enumeration>
+					</restriction>
+				</simpleType></element>
+			<element name="Metadata" type="bt:MetadataStructure"
+				minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>
+						Represents the application specific processing
+						metadata associated with the physical address
+					</documentation>
+				</annotation>
+			</element>
+		</all>
+	</complexType>
+	<complexType name="PostalAddressStructure">
+		<all>
+			<element name="PostalType" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="PO_BOX"></enumeration>
+						<enumeration value="PRIVATE_BAG"></enumeration>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PostalAgency" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="21"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="OtherPostOfficeAddressType" maxOccurs="1"
+				minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="10"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PostOfficeNo" maxOccurs="1" minOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="8"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PostOffice" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="22"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="PostalCode" type="bt:PostalCodeType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="CountryCode" type="bt:CountryType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</all>
+	</complexType>
+	
+	
+	<simpleType name="StatusType">
+		<restriction base="string">
+			<enumeration value="INVALID"></enumeration>
+			<enumeration value="VALID"></enumeration>
+			<enumeration value="IN_PROGRESS"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="BankAccDeclarationReasonStructure">
+		<all>
+			<element name="IndividualReason" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="NON_RESIDENT"></enumeration>
+						<enumeration value="INSOLVENCY"></enumeration>
+						<enumeration value="DECEASED_ESTATE"></enumeration>
+						<enumeration value="SHARED_ACCOUNT"></enumeration>
+						<enumeration value="INCOME_BELOW_THRESHOLD"></enumeration>
+						<enumeration value="STATUTORY_RESTRICTIONS"></enumeration>
+						<enumeration value="MINOR_CHILD"></enumeration>
+					</restriction>
+				</simpleType></element>
+			<element name="OrganisationReason" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="NON_RESIDENT"></enumeration>
+						<enumeration value="LIQUIDATION"></enumeration>
+						<enumeration value="COMPANY_DEREGISTRATION"></enumeration>
+						<enumeration value="GROUP_COMPANY_ACCOUNT"></enumeration>
+						<enumeration value="DORMANCY"></enumeration>
+						<enumeration value="TRUST_ADMIN_ACCOUNT"></enumeration>
+					</restriction>
+				</simpleType></element>
+		</all>
+	</complexType>
+	<complexType name="RelationshipStructure">
+                <all>
+                	<element name="Capacity" maxOccurs="1"
+                		minOccurs="1">
+
+                		<simpleType>
+                			<restriction base="string">
+                				<minLength value="1"></minLength>
+                				<maxLength value="6"></maxLength>
+                			</restriction>
+                		</simpleType>
+                	</element>
+                	<element name="ClientCategory"
+                		type="bt:IndicatorType" maxOccurs="1" minOccurs="1">
+                	</element>
+                	<element name="BusinessPartnerNo" type="bt:BusinessPartnerNoType" maxOccurs="1" minOccurs="0"></element>
+                	<element name="Individual"
+                		type="tns:IndividualStructure" maxOccurs="1"
+                		minOccurs="1">
+                	</element>
+                	<element name="ValidFromDate" type="date"
+                		maxOccurs="1" minOccurs="1">
+                	</element>
+                	<element name="ValidToDate" type="date"
+                		maxOccurs="1" minOccurs="0">
+                	</element>
+                	<element name="IdentificationDetails" maxOccurs="1"
+                		minOccurs="1">
+                		<complexType>
+                			<all>
+                				<element name="IdentificationNo"
+                					type="tns:IdentificationNoType" maxOccurs="1"
+                					minOccurs="1">
+                				</element>
+                				<element name="IssueCountry"
+                					type="bt:CountryType" maxOccurs="1"
+                					minOccurs="0">
+                				</element>
+                				<element name="IssueDate" type="date"
+                					maxOccurs="1" minOccurs="0">
+                				</element>
+                			</all>
+                		</complexType>
+                	</element>
+                	<element name="TaxRefNo" type="bt:TaxRefNoType"
+                		maxOccurs="1" minOccurs="0">
+                	</element>
+                	<element name="RepresentativeInd"
+                		type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+                	</element>
+                	<element name="LiabilityPercentage"
+                		type="tns:LiabilityPercentageType" maxOccurs="1"
+                		minOccurs="0">
+                	</element>
+                	<element name="EntityStatus" maxOccurs="1"
+                		minOccurs="0">
+                		<simpleType>
+                			<restriction base="string">
+                				<minLength value="1"></minLength>
+                				<maxLength value="5"></maxLength>
+                			</restriction>
+                		</simpleType>
+                	</element>
+                	<element name="Metadata" type="bt:MetadataStructure"
+                		maxOccurs="1" minOccurs="0">
+                	</element>
+                </all>
+	</complexType>
+	
+
+	<complexType name="OtherRelationshipsType">
+		<sequence>
+			<element name="OtherRelationship" type="tns:OtherRelationshipStructure" maxOccurs="9999" minOccurs="1"></element>
+		</sequence>
+	</complexType>
+	
+	
+
+	<complexType name="IndividualStructure">
+		<all>
+			<element name="Surname" type="bt:SurnameType" maxOccurs="1" minOccurs="1"></element>
+			<element name="FirstName" type="bt:FullNamesType" maxOccurs="1" minOccurs="1"></element>
+			<element name="OtherName" type="bt:FullNamesType" maxOccurs="1" minOccurs="0"></element>
+			<element name="Initials" type="bt:InitialsType" maxOccurs="1" minOccurs="1"></element>
+			<element name="DateOfBirth" type="date" maxOccurs="1" minOccurs="1"></element>
+		</all>
+	</complexType>
+	<complexType name="BankAccountStructure">
+        <all>
+        	<element name="BankName" type="bt:OrganisationNameType"
+        		minOccurs="1" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents the name of the bank at which the
+        				account is held
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="Status" type="tns:StatusType" maxOccurs="1"
+        		minOccurs="0">
+        	</element>
+        	<element name="BranchNo" type="bt:BankBranchNoType"
+        		minOccurs="1" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents the branch number at which the
+        				account is held
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="BranchName" type="bt:OrganisationNameType"
+        		minOccurs="0" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents a descriptive name of the branch
+        				where the account is held
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="AccountHolder" type="bt:OrganisationNameType"
+        		minOccurs="1" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents a descriptive name for the account
+        				holder (usually surname and initials)
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="BankCountry" type="bt:CountryType"
+        		maxOccurs="1" minOccurs="0">
+        	</element>
+        	<element name="AccountType" type="bt:BankAccountTypeType"
+        		minOccurs="1" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents the type of account held by the party
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="AccountNo" type="bt:BankAccountNoType"
+        		minOccurs="1" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents the party's bank account number
+        			</documentation>
+        		</annotation>
+        	</element>
+        	<element name="Usages" maxOccurs="1" minOccurs="0">
+        		<complexType>
+        			<sequence>
+        				<element name="Usage" maxOccurs="9999"
+        					minOccurs="1">
+        					<complexType>
+        						<all>
+        							<element name="TaxRef" maxOccurs="1"
+        								minOccurs="0">
+        								<complexType>
+        									<all>
+        										<element name="TaxType"
+        											type="bt:TypeOfTaxType" maxOccurs="1"
+        											minOccurs="1">
+        										</element>
+        										<element name="TaxRefNo"
+        											type="bt:TaxRefNoType" maxOccurs="1" minOccurs="0">
+        										</element>
+        									</all>
+        								</complexType>
+        							</element>
+
+        							<element name="UsageType"
+        								maxOccurs="1" minOccurs="1">
+        								<simpleType>
+        									<restriction
+        										base="string">
+        										<enumeration
+        											value="INCOMING">
+        										</enumeration>
+        										<enumeration
+        											value="OUTGOING">
+        										</enumeration>
+        									</restriction>
+        								</simpleType>
+        							</element>
+        						</all>
+        					</complexType>
+        				</element>
+        			</sequence>
+        		</complexType>
+        	</element>
+        	<element name="Metadata" type="bt:MetadataStructure"
+        		minOccurs="0" maxOccurs="1">
+        		<annotation>
+        			<documentation>
+        				Represents the application specific processing
+        				metadata associated with the bank account
+        			</documentation>
+        		</annotation>
+        	</element>
+        </all>
+	</complexType>
+	
+	<complexType name="IdentificationDetailsStructure">
+		<all>
+			<element minOccurs="1" maxOccurs="1"
+				name="IdentificationType">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="6"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element minOccurs="1" maxOccurs="1"
+				name="IdentificationNo">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="60"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element minOccurs="0" maxOccurs="1" name="IssueCountry"
+				type="bt:CountryType">
+			</element>
+			<element name="IssueDate" type="date" maxOccurs="1" minOccurs="0"></element>
+		</all>
+	</complexType>
+	<complexType name="OtherRelationshipStructure">
+					<sequence>
+					<element name="EntityNaturalPersonInd"
+						type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+					</element>
+
+
+					<choice>
+						<element name="IndividualDetails" type="tns:RelationshipStructure" maxOccurs="1" minOccurs="1"></element>
+						<element name="OrganisationDetails" type="tns:OrganisationDetailsStructure" maxOccurs="1" minOccurs="1"></element>
+					</choice>
+                    <element name="Metadata" type="bt:MetadataStructure" maxOccurs="1" minOccurs="0">
+					</element>
+                </sequence>
+			</complexType>
+
+	<complexType name="OrganisationDetailsStructure">
+		<all>
+			<element name="Capacity" maxOccurs="1" minOccurs="1">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="6"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="ClientCategory" type="bt:IndicatorType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="BusinessPartnerNo" type="bt:BusinessPartnerNoType" maxOccurs="1" minOccurs="0"></element>
+			<element name="Organisation"
+				type="tns:OrganisationStructure" maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="IdentificationDetails" maxOccurs="1"
+				minOccurs="1">
+				<complexType>
+					<all>
+						<element name="IdentificationNo" maxOccurs="1"
+							minOccurs="1">
+							<simpleType>
+								<restriction base="string"></restriction>
+							</simpleType>
+						</element>
+						<element name="IssueCountry"
+							type="bt:CountryType" maxOccurs="1" minOccurs="0">
+						</element>
+						<element name="IssueDate" type="date" maxOccurs="1" minOccurs="0"></element>
+					</all>
+				</complexType>
+			</element>
+			<element name="ValidFromDate" type="date" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="ValidToDate" type="date" maxOccurs="1"
+				minOccurs="0">
+			</element>
+			<element name="TaxRefNo" type="bt:TaxRefNoType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="LiabilityPercentage"
+				type="tns:LiabilityPercentageType" maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="EntityStatus" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="5"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Metadata" type="bt:MetadataStructure"
+				maxOccurs="1" minOccurs="0">
+			</element>
+		</all>
+	</complexType>
+	<complexType name="OrganisationStructure">
+		<all>
+			<element minOccurs="1" maxOccurs="1" name="RegisteredName"
+				type="bt:OrganisationNameType">
+			</element>
+			<element minOccurs="0" maxOccurs="1"
+				name="IndustryClassification">
+				<simpleType>
+					<restriction base="string">
+						<minLength value="1"></minLength>
+						<maxLength value="10"></maxLength>
+					</restriction>
+				</simpleType>
+			</element>
+			<element minOccurs="1" maxOccurs="1" name="RegDate"
+				type="date">
+			</element>
+			<element minOccurs="0" maxOccurs="1" name="FinancialYearEnd"
+				type="bt:FinancialYearEndType">
+			</element>
+			<element name="MastersOffice" maxOccurs="1" minOccurs="0">
+				<simpleType>
+					<restriction base="string">
+						<pattern value="\w{1,3}"></pattern>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="TradingName" type="bt:OrganisationNameType"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="RegCountry" type="bt:CountryType"
+				maxOccurs="1" minOccurs="1">
+			</element>
+		</all>
+	</complexType>
+	
+
+	<simpleType name="LiabilityPercentageType">
+		<restriction base="string">
+			<minLength value="1"></minLength>
+			<maxLength value="11"></maxLength>
+		</restriction>
+	</simpleType>
+	<complexType name="CommunicationDetailsStructure">
+		<all>
+			<element minOccurs="0" maxOccurs="1" name="ID"
+				type="long">
+			</element>
+			<element minOccurs="0" maxOccurs="1" name="UniqueID"
+				type="bt:UniqueIdentifierType">
+			</element>
+			<element minOccurs="0" maxOccurs="1"
+				name="ContactDetailID" type="tns:ContactDetailIDType">
+				
+			</element>
+			<element minOccurs="0" maxOccurs="1"
+				name="MarkedForDeletion" type="bt:YesNoIndType">
+			</element>
+			<element minOccurs="0" maxOccurs="1" name="ConfirmedInd"
+				type="bt:YesNoIndType">
+			</element>
+			<element minOccurs="1" maxOccurs="1" name="ContactDetail"
+				type="tns:ContactDetailStructure">
+               
+            </element>
+		</all>
+	</complexType>
+	<complexType name="PhysicalAddressDetailsStructure">
+		<all>
+			<element minOccurs="1" maxOccurs="1" name="PhysicalAddress"
+				type="tns:PhysicalAddressStructure">
+			</element>
+			<element name="ID" type="long" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="UniqueID" type="bt:UniqueIdentifierType"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="ContactDetaillID" type="tns:ContactDetailIDType"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			<element minOccurs="0" maxOccurs="1"
+				name="RegisteredPhysicalAddressInd" type="bt:YesNoIndType">
+			</element>
+			<element name="MarkedForDeletion" type="bt:YesNoIndType"
+				maxOccurs="1" minOccurs="0">
+			</element>
+			<element minOccurs="0" maxOccurs="1" name="Usages"
+				type="tns:UsagesStructure">
+			</element>
+			<element name="ConfirmInd" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0"></element>
+		</all>
+	</complexType>
+
+	<complexType name="PostalAddresssDetailStructure">
+        <sequence>
+
+            <choice><element name="PostalAddress" type="tns:PostalAddressStructure" maxOccurs="1" minOccurs="1">
+        	</element><element name="PhysicalAddress" type="tns:PhysicalAddressStructure" maxOccurs="1" minOccurs="1">
+        	</element></choice>
+        </sequence>
+        
+	</complexType>
+
+	
+
+	<simpleType name="ContactDetailIDType">
+		<restriction base="string">
+			<minLength value="1"></minLength>
+			<maxLength value="10"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<complexType name="EmailAddressStructure">
+        <all>
+			<element name="Email" type="bt:EmailType" maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="ID" type="long" maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="UniqueID" type="bt:UniqueIdentifierType" maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="EmailSeqNo" type="tns:EmailSeqNoType" maxOccurs="1" minOccurs="0"></element>
+			<element name="EmailDetailID" maxOccurs="1" minOccurs="0" type="tns:ContactDetailIDType">
+
+			</element>
+			<element name="Usages" type="tns:UsagesStructure" maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="MarkedForDeletion" type="bt:YesNoIndType" maxOccurs="1" minOccurs="0">
+			</element>
+		</all>
+	</complexType>
+
+	<simpleType name="BankAccIDType">
+		<restriction base="string">
+			<minLength value="1"></minLength>
+			<maxLength value="4"></maxLength>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="TelNoSeqNoType">
+		<restriction base="string">
+			<pattern value="\d{3}"></pattern>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="EmailSeqNoType">
+		<restriction base="string">
+			<pattern value="\d{3}"></pattern>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="IdentificationNoType">
+		<restriction base="string">
+			<minLength value="1"></minLength>
+			<maxLength value="60"></maxLength>
+		</restriction>
+	</simpleType>
+</schema>
